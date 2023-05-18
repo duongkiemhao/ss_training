@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/naivigation"
+    app:startDestination="@id/communicationFragment1">
+
+    <fragment
+        android:id="@+id/communicationFragment1"
+        android:name="com.example.hao_activity_submission.CommunicationFragment.CommunicationFragment1"
+        android:label="fragment_communication1"
+        tools:layout="@layout/fragment_communication1" >
+        <action
+            android:id="@+id/action_communicationFragment1_to_communicationFragmentA"
+            app:destination="@id/communicationFragmentA" />
+        <action
+            android:id="@+id/action_communicationFragment1_to_communicationFragmentB"
+            app:destination="@id/communicationFragmentB" />
+        <action
+            android:id="@+id/action_communicationFragment1_to_communicationFragmentC"
+            app:destination="@id/communicationFragmentC" />
+    </fragment>
+    <fragment
+        android:id="@+id/communicationFragmentA"
+        android:name="com.example.hao_activity_submission.CommunicationFragment.CommunicationFragmentA"
+        android:label="fragment_communication_a"
+        tools:layout="@layout/fragment_communication_a" />
+    <fragment
+        android:id="@+id/communicationFragmentB"
+        android:name="com.example.hao_activity_submission.CommunicationFragment.CommunicationFragmentB"
+        android:label="fragment_communication_b"
+        tools:layout="@layout/fragment_communication_b" />
+    <fragment
+        android:id="@+id/communicationFragmentC"
+        android:name="com.example.hao_activity_submission.CommunicationFragment.CommunicationFragmentC"
+        android:label="fragment_communication_c"
+        tools:layout="@layout/fragment_communication_c" />
+</navigation>
