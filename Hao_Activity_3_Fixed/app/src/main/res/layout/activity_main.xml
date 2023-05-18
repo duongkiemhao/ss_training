@@ -15,8 +15,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#7367"
-        app:tabIndicatorHeight="0dp"
+        app:tabSelectedTextColor="@color/HoloBlue"
+        app:tabTextColor="#FF5722"
+        app:tabIndicatorHeight="2dp"
         app:tabInlineLabel="true"
+        app:tabBackground="@drawable/change_color_tab"
+        app:tabIndicatorColor="#FD0000"
+
         >
 
     </com.google.android.material.tabs.TabLayout>
