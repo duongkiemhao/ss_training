@@ -2,4 +2,7 @@
     <string name="app_name">Hao_Activity_Submission</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="Tab_Fragment_1">Hello First fragment</string>
+    <string name="Tab_Fragment_2">Hello Second fragment</string>
+    <string name="Tab_Fragment_3">Hello Third fragment</string>
 </resources>

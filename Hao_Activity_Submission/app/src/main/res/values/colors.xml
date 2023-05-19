@@ -9,4 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="HoloGreen">#4CAF50</color>
     <color name="HoloBlue">#2196F3</color>
+    <color name="HoloRed">#9C0303</color>
+    <color name="HoloYellow">#FFC107</color>
 </resources>
