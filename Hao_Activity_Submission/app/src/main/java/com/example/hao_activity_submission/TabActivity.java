@@ -1,20 +1,14 @@
 package com.example.hao_activity_submission;
 
-import static androidx.core.content.ContentProviderCompat.requireContext;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -26,38 +20,25 @@ public class TabActivity extends AppCompatActivity {
     TabLayout tabLayout;
 
     LinearLayout tab ;
-    private String[] titles = new String[]{"One", "Two", "Three"};
-    private int[] myImageList = new int[]{R.drawable.change_icon_fragment_1, R.drawable.change_icon_fragment_2, R.drawable.change_icon_fragment_3};
-    private int[] myImageList1 = new int[]{R.drawable.ic_baseline_1k_1, R.drawable.ic_baseline_4g_mobiledata_1, R.drawable.ic_baseline_access_time_1};
-    private int[] myImageList2 = new int[]{R.drawable.ic_baseline_1k_2, R.drawable.ic_baseline_4g_mobiledata_2, R.drawable.ic_baseline_access_time_2};
-    private int[] myText = new int[]{R.drawable.change_color_text};
-    private int[] theInt = new int[]{1,2,3};
+    private String[] TabText = new String[]{"One", "Two", "Three"};
+    private int[] ChangeTabIconFragment = new int[]{R.drawable.change_tab_icon_fragment_1, R.drawable.change_tab_icon_fragment_2, R.drawable.change_tab_icon_fragment_3};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tab_acitivity);
         binding = ActivityTabAcitivityBinding.inflate(getLayoutInflater());
-
         setContentView(binding.getRoot());
         Context mContext = null;
-
         tab = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
-
-        init3();
-
+        init();
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
-
         tabLayout.setSelectedTabIndicatorColor(R.drawable.change_color_tab);
         ACustomTab();
 
     }
 
-
-
-
-
-    private void init3() {
+    private void init() {
         // removing toolbar elevation
         getSupportActionBar().setElevation(0);
 
@@ -67,10 +48,7 @@ public class TabActivity extends AppCompatActivity {
         // attaching tab mediator
         new TabLayoutMediator(binding.tabLayout, binding.viewPager,
                 (tab, position) -> { tab.setCustomView(R.layout.custom_tab);}).attach();
-
     }
-
-
 
     @SuppressLint({"ResourceAsColor", "ResourceType"})
     private void ACustomTab(){
@@ -85,15 +63,10 @@ public class TabActivity extends AppCompatActivity {
 
             // set the label text by getting the actual string value by its id
             // by getting the actual resource value `getResources().getString(string_id)`
-            tab_label.setText(titles[i]);
+            tab_label.setText(TabText[i]);
             tab_label.setTextColor(getResources().getColorStateList(R.drawable.change_color_text));
-            tab_icon.setImageResource(myImageList[i]);
+            tab_icon.setImageResource(ChangeTabIconFragment[i]);
             tabLayout.getTabAt(i).setCustomView(tab);
-
-
     }}
-
-
-
 
 }
