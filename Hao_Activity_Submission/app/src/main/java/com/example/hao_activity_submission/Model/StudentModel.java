@@ -3,9 +3,9 @@ package com.example.hao_activity_submission.Model;
 import com.google.gson.annotations.SerializedName;
 
 public class StudentModel {
-    @SerializedName("StudentId")
+    @SerializedName("id")
     private String StudentId;
-    @SerializedName("StudentName")
+    @SerializedName("title")
     private String StudentName;
 
 

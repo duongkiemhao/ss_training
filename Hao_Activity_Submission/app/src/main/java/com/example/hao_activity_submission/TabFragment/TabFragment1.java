@@ -45,7 +45,7 @@ public class TabFragment1 extends Fragment implements StudentListAdapter.ItemCli
        View v = inflater.inflate(R.layout.fragment_tab1, container, false);
         RecyclerView recyclerView = v.findViewById(R.id.recyclerView);
         final TextView noresult = v.findViewById(R.id.noResultTv);
-        LinearLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
+        LinearLayoutManager layoutManager = new GridLayoutManager(getActivity(), 1);
         recyclerView.setLayoutManager(layoutManager);
         adapter =  new StudentListAdapter(getActivity(), studentModelList, this);
         recyclerView.setAdapter(adapter);
@@ -70,6 +70,6 @@ public class TabFragment1 extends Fragment implements StudentListAdapter.ItemCli
 
     @Override
     public void onStudentClick(StudentModel student) {
-        Toast.makeText(getActivity(), "Clicked Movie Name is : " + student.getStudentId(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), "Student ID is: " + student.getStudentId() + "; Name: " +student.getStudentName(), Toast.LENGTH_SHORT).show();
     }
 }

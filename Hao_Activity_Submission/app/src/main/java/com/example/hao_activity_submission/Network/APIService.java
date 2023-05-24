@@ -8,7 +8,7 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 
 public interface APIService {
-    @GET("/9658a5fcc6571c9bd7a1")
+    @GET("/typicode/demo/posts")
     Call<List<StudentModel>> getStudentList();
 
 }
