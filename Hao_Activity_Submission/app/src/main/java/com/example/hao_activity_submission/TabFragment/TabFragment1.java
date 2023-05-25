@@ -8,10 +8,12 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,7 +32,11 @@ public class TabFragment1 extends Fragment implements StudentListAdapter.ItemCli
     private List<StudentModel> studentModelList;
     private StudentListAdapter adapter;
     private StudentListViewModel viewModel;
-
+    private ViewGroup fragmentContainer;
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private RecyclerView recyclerView;
+    private LinearLayoutManager layoutManager;
+    private ProgressBar mProgressBar;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,12 +49,29 @@ public class TabFragment1 extends Fragment implements StudentListAdapter.ItemCli
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
        View v = inflater.inflate(R.layout.fragment_tab1, container, false);
-        RecyclerView recyclerView = v.findViewById(R.id.recyclerView);
+        //Loading Effect
+        swipeRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipeToRefresh);
+
+
+        //Get Data
+        recyclerView = v.findViewById(R.id.recyclerView);
         final TextView noresult = v.findViewById(R.id.noResultTv);
-        LinearLayoutManager layoutManager = new GridLayoutManager(getActivity(), 1);
+        layoutManager = new GridLayoutManager(getActivity(), 1);
         recyclerView.setLayoutManager(layoutManager);
         adapter =  new StudentListAdapter(getActivity(), studentModelList, this);
         recyclerView.setAdapter(adapter);
+
+        //progress bar
+        mProgressBar = (ProgressBar) v.findViewById(R.id.progress_bar);
+
+        //refresh
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                theReset();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
 
 
         viewModel = ViewModelProviders.of(this).get(StudentListViewModel.class);
@@ -59,12 +82,18 @@ public class TabFragment1 extends Fragment implements StudentListAdapter.ItemCli
                     studentModelList = movieModels;
                     adapter.setStudentList(movieModels);
                     noresult.setVisibility(View.GONE);
+                    mProgressBar.setVisibility(View.GONE);
                 } else {
                     noresult.setVisibility(View.VISIBLE);
+                    mProgressBar.setVisibility(View.GONE);
                 }
             }
         });
+
+
         viewModel.makeApiCall();
+
+
         return v;
     }
 
@@ -72,4 +101,18 @@ public class TabFragment1 extends Fragment implements StudentListAdapter.ItemCli
     public void onStudentClick(StudentModel student) {
         Toast.makeText(getActivity(), "Student ID is: " + student.getStudentId() + "; Name: " +student.getStudentName(), Toast.LENGTH_SHORT).show();
     }
+
+    public void theReset() {
+
+        layoutManager = new GridLayoutManager(getActivity(), 1);
+        recyclerView.setLayoutManager(layoutManager);
+        adapter = new  StudentListAdapter(getActivity(), studentModelList, this);
+
+        recyclerView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+        viewModel.makeApiCall();
+        mProgressBar.setVisibility(View.VISIBLE);
+    }
+
+
 }
