@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -42,6 +43,7 @@ public class StudentListAdapter extends RecyclerView.Adapter<StudentListAdapter.
         return new MyViewHolder(view);
     }
 
+    @Nullable
     @Override
     public void onBindViewHolder(@NonNull StudentListAdapter.MyViewHolder holder, int position) {
         StudentModel student = studentList.get(holder.getAdapterPosition());
