@@ -14,6 +14,8 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.example.hao_activity_submission.databinding.ActivityTabAcitivityBinding;
 
+import androidx.databinding.DataBindingUtil;
+
 public class TabActivity extends AppCompatActivity {
 
     private ActivityTabAcitivityBinding binding;
@@ -26,7 +28,8 @@ public class TabActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tab_acitivity);
+        binding = DataBindingUtil.setContentView(this,R.layout.activity_tab_acitivity);
+//        setContentView(R.layout.activity_tab_acitivity);
         binding = ActivityTabAcitivityBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         Context mContext = null;

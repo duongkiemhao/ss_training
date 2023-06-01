@@ -5,4 +5,18 @@
     <string name="Tab_Fragment_1">Hello First fragment</string>
     <string name="Tab_Fragment_2">Hello Second fragment</string>
     <string name="Tab_Fragment_3">Hello Third fragment</string>
+
+
+    <string name="place_holder_text">Lorem ipsum</string>
+    <string name="place_holder_text_long">orem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
+    <string name="label_beer_abv">ABV</string>
+    <string name="label_beer_ibu">IBU</string>
+    <string name="label_beer_ebc">EBC</string>
+    <string name="label_beer_srm">SRM</string>
+    <string name="desc_beer_image">Beer image</string>
+    <string name="help_header">What does these terminologies mean?</string>
+    <string name="help_abv">ABV (Alcohol by volume): It is a standard measure of how much alcohol is contained in a given volume of an alcoholic beverage.</string>
+    <string name="help_ibu">IBU (International Bitterness Unit):  It is used to approximately quantify the bitterness of beer.</string>
+    <string name="help_ebc">EBC (European Brewery Convention): It is a measurement of colour of a beer. One EBC corresponds to 1 ml of iodine in 100 ml of water.</string>
+    <string name="help_srm">SRM (Standard Reference Method): It is the US color system used by brewers to specify finished beer and malt color.</string>
 </resources>

@@ -11,4 +11,9 @@
     <color name="HoloBlue">#2196F3</color>
     <color name="HoloRed">#9C0303</color>
     <color name="HoloYellow">#FFC107</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorPrimary">#FF9800</color>
+    <color name="colorPrimaryDark">#FF9800</color>
+    <color name="colorAccent">#03DAC5</color>
+    <color name="colorBackground">#e9ecf2</color>
 </resources>
