@@ -1,6 +1,6 @@
 package com.example.hao_activity_submission.Network;
 
-import com.example.hao_activity_submission.Model.BeerModel;
+import com.example.hao_activity_submission.BeerModel;
 
 import java.util.List;
 

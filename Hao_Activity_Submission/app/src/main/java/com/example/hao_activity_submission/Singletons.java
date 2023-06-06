@@ -43,11 +43,11 @@ public class Singletons {
         return sharedPreferencesInstance;
     }
 
-    public static PunkRepository getPunkRepository(TabFragment1 context) {
-        if (punkRepositoryInstance == null) {
-            punkRepositoryInstance = new PunkRepository(getPunkApi(), getSharedPreferences(context.getActivity()), getGson());
-        }
-        return punkRepositoryInstance;
-    }
+//    public static PunkRepository getPunkRepository(TabFragment1 context) {
+//        if (punkRepositoryInstance == null) {
+//            punkRepositoryInstance = new PunkRepository(getPunkApi(), getSharedPreferences(context.getActivity()), getGson());
+//        }
+//        return punkRepositoryInstance;
+//    }
 
 }

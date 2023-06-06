@@ -1,6 +1,6 @@
 package com.example.hao_activity_submission.Network;
 
-import com.example.hao_activity_submission.Model.BeerModel;
+import com.example.hao_activity_submission.BeerModel;
 
 import java.util.List;
 
@@ -13,18 +13,9 @@ public interface PunkApi {
     int RESULTS_PER_PAGE = 25;
     int MAXIMUM_PAGE = 5;
 
-    @GET("beers/")
-    Call<List<BeerModel>> getBeers();
 
     @GET("beers?per_page=5")
     Call<List<BeerModel>> getBeers(@Query("page") String page);
 
-    @GET("beers/")
-    Call<List<BeerModel>> getBeerById(@Query("id") int id);
 
-    @GET("beers/")
-    Call<List<BeerModel>> getBeerByName(@Query("beer_name") String beerName);
-
-    @GET("beers/random")
-    Call<List<BeerModel>> getRandomBeer();
 }
