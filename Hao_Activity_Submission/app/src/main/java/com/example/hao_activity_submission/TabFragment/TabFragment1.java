@@ -1,5 +1,6 @@
 package com.example.hao_activity_submission.TabFragment;
 
+import android.nfc.Tag;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -10,6 +11,8 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +41,8 @@ public class TabFragment1 extends Fragment {
     RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private int page = 1;
+
+    private static final String TAG = "TabActivity";
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +62,6 @@ public class TabFragment1 extends Fragment {
         recyclerView.setHasFixedSize(true);
 
         swipeRefreshLayout = (SwipeRefreshLayout) binding.swipeToRefresh.findViewById(R.id.swipeToRefresh);
-
 
 
         swipeRefreshLayout.setOnRefreshListener(() -> {
@@ -80,13 +84,22 @@ public class TabFragment1 extends Fragment {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                if (dy > 0) {
-                    if (!recyclerView.canScrollVertically(RecyclerView.FOCUS_DOWN)) {
-                        layoutManager.scrollToPosition(0);
-                        page++;
-                        getData(page);
-                    }
+
+
+                    int visibleItemCount = binding.recyclerView.getLayoutManager().getChildCount();
+                    int totalItemCount = binding.recyclerView.getLayoutManager().getItemCount();
+                    int pastVisibleItems = ((LinearLayoutManager)binding.recyclerView.getLayoutManager()).findFirstVisibleItemPosition();
+
+                Log.d(TAG, String.valueOf(visibleItemCount));
+                Log.d(TAG, String.valueOf(totalItemCount));
+                Log.d(TAG, String.valueOf(pastVisibleItems));
+                if (pastVisibleItems + visibleItemCount >= totalItemCount) {
+                    layoutManager.scrollToPosition(visibleItemCount - 1);
+                    page++;
+                    getData(page);
                 }
+
+
 
             }
         });
@@ -96,7 +109,8 @@ public class TabFragment1 extends Fragment {
 
 
     private void getData(int paging) {
-        BeerViewModel.getAllBeer(paging).observe(getViewLifecycleOwner(), userList -> {
+
+        BeerViewModel.getAllBeer(paging*10).observe(getViewLifecycleOwner(), userList -> {
             adapter.setBeerList((ArrayList<BeerModel>) userList);
         });
     }

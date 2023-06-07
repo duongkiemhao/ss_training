@@ -14,8 +14,8 @@ public interface PunkApi {
     int MAXIMUM_PAGE = 5;
 
 
-    @GET("beers?per_page=5")
-    Call<List<BeerModel>> getBeers(@Query("page") String page);
+    @GET("beers?page=1")
+    Call<List<BeerModel>> getBeers(@Query("per_page") String page);
 
 
 }
