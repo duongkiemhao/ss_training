@@ -33,12 +33,8 @@ import java.util.ArrayList;
  */
 public class TabFragment1 extends Fragment {
 
-
-    private SwipeRefreshLayout swipeRefreshLayout;
-
     private BeerViewModel beerViewModel;
     BeerListAdapter adapter;
-    RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private int page = 1;
 
@@ -57,30 +53,28 @@ public class TabFragment1 extends Fragment {
 
         FragmentTab1Binding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_tab1, container, false);
 
-        recyclerView = binding.recyclerView;
         binding.recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setHasFixedSize(true);
-
-        swipeRefreshLayout = (SwipeRefreshLayout) binding.swipeToRefresh.findViewById(R.id.swipeToRefresh);
+        binding.recyclerView.setHasFixedSize(true);
 
 
-        swipeRefreshLayout.setOnRefreshListener(() -> {
+
+        binding.swipeToRefresh.setOnRefreshListener(() -> {
             page = 1;
             getData(page);
-            swipeRefreshLayout.setRefreshing(false);
+            binding.swipeToRefresh.setRefreshing(false);
         });
 
         layoutManager = new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(layoutManager);
+        binding.recyclerView.setLayoutManager(layoutManager);
 
         adapter = new BeerListAdapter();
-        recyclerView.setAdapter(adapter);
+        binding.recyclerView.setAdapter(adapter);
 
         beerViewModel= ViewModelProviders.of(this).get(BeerViewModel.class);
         getData(page);
 
 
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        binding.recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
@@ -94,7 +88,6 @@ public class TabFragment1 extends Fragment {
                 Log.d(TAG, String.valueOf(totalItemCount));
                 Log.d(TAG, String.valueOf(pastVisibleItems));
                 if (pastVisibleItems + visibleItemCount >= totalItemCount) {
-                    layoutManager.scrollToPosition(visibleItemCount - 1);
                     page++;
                     getData(page);
                 }
