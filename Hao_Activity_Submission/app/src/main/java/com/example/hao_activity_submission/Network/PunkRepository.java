@@ -1,10 +1,12 @@
 package com.example.hao_activity_submission.Network;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.hao_activity_submission.BeerModel;
+import com.example.hao_activity_submission.TabActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +45,7 @@ public class PunkRepository {
                 if (response.body() != null) {
                     userArrayList = (ArrayList<BeerModel>) response.body();
                     mutableLiveData.setValue(userArrayList);
+
                 }
             }
             @Override
