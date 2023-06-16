@@ -73,7 +73,7 @@ public class TabActivity extends AppCompatActivity {
         // removing toolbar elevation
         getSupportActionBar().setElevation(0);
         binding.viewPager.setOffscreenPageLimit(1);
-        binding.viewPager.setAdapter(new TabActivityAdapter(this));
+        binding.viewPager.setAdapter(new TabActivityAdapter(this,getSupportFragmentManager(),getLifecycle()));
         binding.viewPager.isUserInputEnabled();
 //        binding.tabLayout.setupWithViewPager(binding.viewPager);
         //binding.viewPager.setOffscreenPageLimit(0);
