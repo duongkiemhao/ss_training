@@ -10,9 +10,13 @@ import android.view.LayoutInflater;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.hao_activity_submission.TabFragment.TabFragment1;
+import com.example.hao_activity_submission.TabFragment.TabFragment2;
+import com.example.hao_activity_submission.TabFragment.TabFragment3;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.example.hao_activity_submission.databinding.ActivityTabAcitivityBinding;
@@ -20,8 +24,11 @@ import com.example.hao_activity_submission.databinding.ActivityTabAcitivityBindi
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
+
+import java.util.Objects;
 
 public class TabActivity extends AppCompatActivity {
 
@@ -31,12 +38,13 @@ public class TabActivity extends AppCompatActivity {
     LinearLayout tab ;
     private String[] TabText = new String[]{"One", "Two", "Three"};
     private int[] ChangeTabIconFragment = new int[]{R.drawable.change_tab_icon_fragment_1, R.drawable.change_tab_icon_fragment_2, R.drawable.change_tab_icon_fragment_3};
+    RefreshInterface refreshInterface;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this,R.layout.activity_tab_acitivity);
-//        setContentView(R.layout.activity_tab_acitivity);
         binding = ActivityTabAcitivityBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         Context mContext = null;
@@ -45,35 +53,51 @@ public class TabActivity extends AppCompatActivity {
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
         tabLayout.setSelectedTabIndicatorColor(R.drawable.change_color_tab);
         ACustomTab();
-//        viewPager2 = binding.viewPager;
-//        tabLayout.setupWithViewPager(viewPager2);
-        binding.tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        refreshInterface = this::init;
+        Fragment page = getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.viewPager + ":" + binding.viewPager.getCurrentItem());
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab1) {
-//                Fragment currentFragment = getActivity().getFragmentManager().findFragmentById(R.id.fragment_container);
-//                fragmentManager.beginTransaction().detach(this).attach(this).commit();
-
+                switch (tab1.getPosition()){
+                        case 0:
+                            refreshInterface.refresh_fragment();
+                            break;
+                        case 1:
+                            TabFragment2 twoFragment = new TabFragment2();
+                            break;
+                        case 2:
+                            TabFragment3 threeFragment = new TabFragment3();
+                            break;
+                    }
             }
-
             @Override
             public void onTabUnselected(TabLayout.Tab tab1) {
-
+//                binding.viewPager.setOffscreenPageLimit(1);
             }
-
             @Override
             public void onTabReselected(TabLayout.Tab tab1) {
-                binding.viewPager.setCurrentItem(tab1.getPosition());
-                binding.tabLayout.getTabAt(tab1.getPosition());
-                binding.viewPager.setOffscreenPageLimit(1);
+//                binding.viewPager.setCurrentItem(tab1.getPosition());
+//                binding.tabLayout.getTabAt(tab1.getPosition());
+                Toast.makeText(getApplicationContext(), String.valueOf(tab1.getPosition()), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
+
+    public void initialiseRefreshInterface(RefreshInterface refreshInterface){
+        this.refreshInterface = refreshInterface;
+    }
+
+    public interface RefreshInterface {
+        void refresh_fragment();
+    }
+
+
     private void init() {
         // removing toolbar elevation
         getSupportActionBar().setElevation(0);
-        binding.viewPager.setOffscreenPageLimit(1);
-        binding.viewPager.setAdapter(new TabActivityAdapter(this,getSupportFragmentManager(),getLifecycle()));
+        binding.viewPager.setOffscreenPageLimit(2);
+        binding.viewPager.setAdapter(new TabActivityAdapter(getSupportFragmentManager(),getLifecycle()));
         binding.viewPager.isUserInputEnabled();
 //        binding.tabLayout.setupWithViewPager(binding.viewPager);
         //binding.viewPager.setOffscreenPageLimit(0);

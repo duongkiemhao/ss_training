@@ -1,5 +1,7 @@
 package com.example.hao_activity_submission;
 
+import static androidx.viewpager.widget.PagerAdapter.POSITION_NONE;
+
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -18,7 +20,7 @@ public class TabActivityAdapter extends FragmentStateAdapter {
 
     private String[] titles = new String[]{"First", "Second", "Third"};
 
-    public TabActivityAdapter(@NonNull FragmentActivity fragmentActivity,@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle) {
+    public TabActivityAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle) {
         super(fragmentManager,lifecycle);
     }
 
@@ -47,10 +49,10 @@ public class TabActivityAdapter extends FragmentStateAdapter {
 
 
 
-
     @Override
     public int getItemCount() {
         return titles.length;
     }
+
 
 }

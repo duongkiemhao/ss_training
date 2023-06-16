@@ -8,4 +8,6 @@ public interface PunkCallback {
     void onSuccess(List<BeerModel> beers);
 
     void onFailure();
+
+
 }
