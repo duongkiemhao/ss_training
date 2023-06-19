@@ -17,6 +17,9 @@ public class BeerModel {
     private String name;
     private String tagline;
     private String description;
+    public static final int TYPE_ODD=0;
+    public static final int TYPE_EVEN=1;
+
 
     @SerializedName("first_brewed")
     private String firstBrewed;

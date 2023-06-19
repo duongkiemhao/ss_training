@@ -1,6 +1,5 @@
 package com.example.hao_activity_submission.TabFragment;
 
-import android.nfc.Tag;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -8,10 +7,8 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -44,7 +41,7 @@ public class TabFragment1 extends Fragment implements TabActivity.RefreshInterfa
     private static final String TAG = "TabActivity";
     //interface refresh fragment
     TabActivity.RefreshInterface refreshInterface;
-
+    FragmentTab1Binding binding;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +54,7 @@ public class TabFragment1 extends Fragment implements TabActivity.RefreshInterfa
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        FragmentTab1Binding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_tab1, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_tab1, container, false);
 
         binding.recyclerView.setLayoutManager(layoutManager);
         binding.recyclerView.setHasFixedSize(true);
@@ -118,24 +115,17 @@ public class TabFragment1 extends Fragment implements TabActivity.RefreshInterfa
 
     @Override
     public void refresh_fragment() {
-        // as we added the child fragment to backstack. we will remove the fragment from backstack and add again
-        if (getActivity().getSupportFragmentManager().getBackStackEntryCount() > 0){
-            getActivity().getSupportFragmentManager().popBackStack();
-        }
-        launchChildFragment();
-        getData(1);
+
+        getData2(1, binding);
     }
 
     public void initialiseRefreshInterface(TabActivity.RefreshInterface refreshInterface){
         this.refreshInterface = refreshInterface;
     }
     private void launchChildFragment(){
-        // creating the object for child fragment
         tabFragment1 = new TabFragment1();
-        // intialising the RefreshInterface object
         tabFragment1.initialiseRefreshInterface(refreshInterface);
-        // calling the child fragment
-//        getActivity().getSupportFragmentManager().beginTransaction().add(R.id.viewPager, tabFragment1).addToBackStack(null).commit();
+
     }
 
 
@@ -144,6 +134,15 @@ public class TabFragment1 extends Fragment implements TabActivity.RefreshInterfa
         BeerViewModel.getAllBeer(paging*10).observe(getViewLifecycleOwner(), userList -> {
             adapter.setBeerList((ArrayList<BeerModel>) userList);
         });
+       // binding.recyclerView.smoothScrollToPosition(3);
+    }
+
+    public void getData2(int paging, FragmentTab1Binding binding) {
+
+        BeerViewModel.getAllBeer(paging*10).observe(getViewLifecycleOwner(), userList -> {
+            adapter.setBeerList((ArrayList<BeerModel>) userList);
+        });
+        binding.recyclerView.smoothScrollToPosition(0);
     }
 
     public void print(){

@@ -53,14 +53,15 @@ public class TabActivity extends AppCompatActivity {
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
         tabLayout.setSelectedTabIndicatorColor(R.drawable.change_color_tab);
         ACustomTab();
-        refreshInterface = this::init;
-        Fragment page = getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.viewPager + ":" + binding.viewPager.getCurrentItem());
+
+//        Fragment page = getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.viewPager + ":" + binding.viewPager.getCurrentItem());
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab1) {
                 switch (tab1.getPosition()){
                         case 0:
-                            refreshInterface.refresh_fragment();
+                            if(getSupportFragmentManager().findFragmentByTag("f" + tab1.getPosition()) instanceof RefreshInterface)
+                                ((RefreshInterface)getSupportFragmentManager().findFragmentByTag("f" + tab1.getPosition())).refresh_fragment();
                             break;
                         case 1:
                             TabFragment2 twoFragment = new TabFragment2();
@@ -99,13 +100,9 @@ public class TabActivity extends AppCompatActivity {
         binding.viewPager.setOffscreenPageLimit(2);
         binding.viewPager.setAdapter(new TabActivityAdapter(getSupportFragmentManager(),getLifecycle()));
         binding.viewPager.isUserInputEnabled();
-//        binding.tabLayout.setupWithViewPager(binding.viewPager);
-        //binding.viewPager.setOffscreenPageLimit(0);
         // attaching tab mediator
         new TabLayoutMediator(binding.tabLayout, binding.viewPager,
                 (tab, position) -> { tab.setCustomView(R.layout.custom_tab);}).attach();
-
-//        binding.notifyAll();
     }
 
     @SuppressLint({"ResourceAsColor", "ResourceType"})
