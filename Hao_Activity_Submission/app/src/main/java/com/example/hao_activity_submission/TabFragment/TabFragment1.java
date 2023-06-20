@@ -10,6 +10,8 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,6 +44,7 @@ public class TabFragment1 extends Fragment implements TabActivity.RefreshInterfa
     //interface refresh fragment
     TabActivity.RefreshInterface refreshInterface;
     FragmentTab1Binding binding;
+    Handler handler = new Handler();
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,7 +66,9 @@ public class TabFragment1 extends Fragment implements TabActivity.RefreshInterfa
 
         binding.swipeToRefresh.setOnRefreshListener(() -> {
             page = 1;
-            getData(page);
+//            getData(page);
+            handler.postDelayed(() -> getData(page), 2000);
+
             binding.swipeToRefresh.setRefreshing(false);
         });
 
@@ -87,12 +92,17 @@ public class TabFragment1 extends Fragment implements TabActivity.RefreshInterfa
                     int totalItemCount = binding.recyclerView.getLayoutManager().getItemCount();
                     int pastVisibleItems = ((LinearLayoutManager)binding.recyclerView.getLayoutManager()).findFirstVisibleItemPosition();
 
-                Log.d(TAG, String.valueOf(visibleItemCount));
-                Log.d(TAG, String.valueOf(totalItemCount));
-                Log.d(TAG, String.valueOf(pastVisibleItems));
-                if (pastVisibleItems + visibleItemCount >= totalItemCount) {
+                Log.d(TAG,"Visible Item Count: " + visibleItemCount);
+                Log.d(TAG, "Total Item Count: " +String.valueOf(totalItemCount));
+                Log.d(TAG, "Past Visible Items: " +String.valueOf(pastVisibleItems));
+                if ((visibleItemCount + pastVisibleItems) >=
+                        totalItemCount && pastVisibleItems >= 0 && page < 8) {
+
+                    binding.recyclerView.setNestedScrollingEnabled(false);
+                    binding.recyclerView.smoothScrollToPosition(totalItemCount - 5);
                     page++;
                     getData(page);
+                    binding.recyclerView.setNestedScrollingEnabled(true);
                 }
 
 
@@ -115,8 +125,11 @@ public class TabFragment1 extends Fragment implements TabActivity.RefreshInterfa
 
     @Override
     public void refresh_fragment() {
-
-        getData2(1, binding);
+        page =1;
+//        getData2(1, binding);
+        getData(1);
+//        handler.postDelayed(() -> {getData(page);}, 2000);
+        binding.recyclerView.smoothScrollToPosition(0);
     }
 
     public void initialiseRefreshInterface(TabActivity.RefreshInterface refreshInterface){
