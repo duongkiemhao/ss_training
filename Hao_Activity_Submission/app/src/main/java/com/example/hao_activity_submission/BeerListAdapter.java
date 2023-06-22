@@ -156,8 +156,12 @@ public class BeerListAdapter extends RecyclerView.Adapter{
 
     public void setBeerList(ArrayList<BeerModel> beers) {
         this.beers = beers;
-        notifyDataSetChanged();
+     //   notifyDataSetChanged();
     }
+    public void remove(){
+        beers.clear();
+    }
+
     public BeerModel getCurrentItemAt(int position) {
         return beers.get(position);
     }

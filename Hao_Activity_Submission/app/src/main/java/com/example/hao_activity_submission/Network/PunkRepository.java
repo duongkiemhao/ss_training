@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.hao_activity_submission.BeerModel;
 import com.example.hao_activity_submission.TabActivity;
+import com.example.hao_activity_submission.Utils.SingleLiveEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +22,7 @@ public class PunkRepository {
 //    private SharedPreferences sharedPreferences;
     private Application application;
     private ArrayList<BeerModel> userArrayList = new ArrayList<>();
-    private MutableLiveData<List<BeerModel>> mutableLiveData = new MutableLiveData<>();
+    private SingleLiveEvent<List<BeerModel>> mutableLiveData = new SingleLiveEvent<>();
     private int paging = 1;
 //    public PunkRepository(PunkApi punkApi, SharedPreferences sharedPreferences, Gson gson) {
 //        this.punkApi = punkApi;
@@ -36,7 +37,7 @@ public class PunkRepository {
 
 
 
-    public MutableLiveData<List<BeerModel>> getBeers( int page) {
+    public SingleLiveEvent<List<BeerModel>> getBeers( int page) {
         PunkApi apiService = RetroInstance.getRetrofitInstance();
         Call<List<BeerModel>> call = apiService.getBeers(String.valueOf(page));
         call.enqueue(new Callback<List<BeerModel>>() {

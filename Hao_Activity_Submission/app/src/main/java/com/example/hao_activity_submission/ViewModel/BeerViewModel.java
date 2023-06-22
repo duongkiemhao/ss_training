@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.hao_activity_submission.BeerModel;
 import com.example.hao_activity_submission.Network.PunkRepository;
+import com.example.hao_activity_submission.Utils.SingleLiveEvent;
 
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class BeerViewModel  extends AndroidViewModel {
         repository = new PunkRepository(application);
     }
 
-    public static MutableLiveData<List<BeerModel>> getAllBeer(int page) {
-        return repository.getBeers(page);
+    public static SingleLiveEvent<List<BeerModel>> getAllBeer(int page) {
+        return (SingleLiveEvent<List<BeerModel>>) repository.getBeers(page);
     }
 }

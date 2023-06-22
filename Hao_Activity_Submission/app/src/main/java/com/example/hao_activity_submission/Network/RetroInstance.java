@@ -20,17 +20,17 @@ public class RetroInstance {
 
             interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
             OkHttpClient httpclient = new OkHttpClient.Builder().addInterceptor(interceptor)
-                    .addInterceptor(new Interceptor() {
-                @Override
-                public okhttp3.Response intercept(Chain chain) throws IOException {
-                    Request original = chain.request();
-                    Request.Builder requestBuilder = original.newBuilder()
-                            .header("Accept", "application/json")
-                            .method(original.method(), original.body());
-                    Request request = requestBuilder.build();
-                    return chain.proceed(request);
-                }
-            })
+//                    .addInterceptor(new Interceptor() {
+//                @Override
+//                public okhttp3.Response intercept(Chain chain) throws IOException {
+//                    Request original = chain.request();
+//                    Request.Builder requestBuilder = original.newBuilder()
+//                            .header("Accept", "application/json")
+//                            .method(original.method(), original.body());
+//                    Request request = requestBuilder.build();
+//                    return chain.proceed(request);
+//                }
+//            })
                     .build();
 
 //            OkHttpClient httpClient = new OkHttpClient();
