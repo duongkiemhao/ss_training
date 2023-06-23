@@ -102,6 +102,12 @@ public class BeerListAdapter extends RecyclerView.Adapter{
     }
 
 
+    //Inside the Adapter class
+    @Override
+    public long getItemId(int position) {
+        return beers.get(position).getId();
+    }
+
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
@@ -156,7 +162,8 @@ public class BeerListAdapter extends RecyclerView.Adapter{
 
     public void setBeerList(ArrayList<BeerModel> beers) {
         this.beers = beers;
-     //   notifyDataSetChanged();
+//     notifyDataSetChanged();
+//        notifyAll();
     }
     public void remove(){
         beers.clear();

@@ -1,5 +1,7 @@
 package com.example.hao_activity_submission.TabFragment;
 
+import static androidx.recyclerview.widget.RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY;
+import  androidx.recyclerview.widget.RecyclerView.Adapter.StateRestorationPolicy;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -69,8 +72,12 @@ public class TabFragment1 extends Fragment implements TabActivity.RefreshInterfa
         binding.recyclerView.setHasFixedSize(true);
         binding.recyclerView.setLayoutManager(layoutManager);
 
+
+
         adapter = new BeerListAdapter();
+        adapter.setStateRestorationPolicy(RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY);
         beerViewModel= ViewModelProviders.of(this).get(BeerViewModel.class);
+        adapter.setHasStableIds(true);
         clearList();
         getData(page);
 
@@ -102,10 +109,10 @@ public class TabFragment1 extends Fragment implements TabActivity.RefreshInterfa
                 if ((visibleItemCount + pastVisibleItems) >=
                         totalItemCount && pastVisibleItems >= 0 ) {
 
-//                    binding.recyclerView.setNestedScrollingEnabled(false);
-                    binding.recyclerView.scrollToPosition(totalItemCount - 5);
+
                     page++;
                     getData(page);
+                    binding.recyclerView.scrollToPosition(page*10-10);
 //                    binding.recyclerView.setNestedScrollingEnabled(true);
                 }
 
@@ -133,8 +140,9 @@ public class TabFragment1 extends Fragment implements TabActivity.RefreshInterfa
         adapter.remove();
         clearList();
         adapter.getBeers().clear();
+        adapter.notifyDataSetChanged();
         getData(1);
-        binding.recyclerView.scrollToPosition(0);
+        //binding.recyclerView.scrollToPosition(0);
     }
 
     public void initialiseRefreshInterface(TabActivity.RefreshInterface refreshInterface){
@@ -157,12 +165,26 @@ public class TabFragment1 extends Fragment implements TabActivity.RefreshInterfa
 
             BeerViewModel.getAllBeer(paging).observe(getActivity(), userList -> {
 
+                Parcelable recycleViewState = binding.recyclerView.getLayoutManager().onSaveInstanceState();
 
                 Log.d(TAG,"userList: " + userList.toString());
                 beerArrayList.addAll(userList);
                 adapter.setBeerList(beerArrayList);
-                adapter.notifyDataSetChanged();
+                adapter.notifyItemRangeInserted(adapter.getItemCount(), beerArrayList.size() -1);
+                adapter.notifyItemInserted(userList.size() - 1);
                 binding.recyclerView.setAdapter(adapter);
+//                adapter.notifyItemInserted(paging*10 - 11);
+
+                adapter.notifyItemChanged( beerArrayList.size() - 1);
+
+                Log.d(TAG, "New beer Array List Size: " +beerArrayList.size() );
+//                adapter.notifyItemRangeChanged(binding.recyclerView.getLayoutManager().getItemCount() - 10, beerArrayList.size() - 1);
+//                binding.recyclerView.getLayoutManager().onRestoreInstanceState(recycleViewState);
+
+
+//                binding.recyclerView.scrollToPosition(binding.recyclerView.getLayoutManager().getItemCount() - 10);
+//                adapter.notifyDataSetChanged();
+
             });
     }
 
@@ -214,14 +236,14 @@ public class TabFragment1 extends Fragment implements TabActivity.RefreshInterfa
 //       // binding.recyclerView.smoothScrollToPosition(3);
 //    }
 
-    public void getData2(int paging, FragmentTab1Binding binding) {
-
-        BeerViewModel.getAllBeer(paging*10).observe(getViewLifecycleOwner(), userList -> {
-//            adapter.getBeers().addAll(userList);
-            adapter.setBeerList((ArrayList<BeerModel>) userList);
-        });
-        binding.recyclerView.smoothScrollToPosition(0);
-    }
+//    public void getData2(int paging, FragmentTab1Binding binding) {
+//
+//        BeerViewModel.getAllBeer(paging*10).observe(getViewLifecycleOwner(), userList -> {
+////            adapter.getBeers().addAll(userList);
+//            adapter.setBeerList((ArrayList<BeerModel>) userList);
+//        });
+//        binding.recyclerView.smoothScrollToPosition(0);
+//    }
 
     public void print(){
         Log.d("ff","from One fragment");
