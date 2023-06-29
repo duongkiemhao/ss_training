@@ -21,7 +21,11 @@ public class BeerViewModel  extends AndroidViewModel {
         repository = new PunkRepository(application);
     }
 
-    public static SingleLiveEvent<List<BeerModel>> getAllBeer(int page) {
-        return (SingleLiveEvent<List<BeerModel>>) repository.getBeers(page);
+//    public static SingleLiveEvent<List<BeerModel>> getAllBeer(int page) {
+//        return (SingleLiveEvent<List<BeerModel>>) repository.getBeers(page);
+//    }
+
+    public  MutableLiveData<List<BeerModel>> getAllBeer(int page) {
+        return (MutableLiveData<List<BeerModel>>) repository.getBeers(page);
     }
 }

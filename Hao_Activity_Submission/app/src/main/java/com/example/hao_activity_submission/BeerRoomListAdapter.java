@@ -3,23 +3,22 @@ package com.example.hao_activity_submission;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
+import com.example.hao_activity_submission.databinding.FragmentTab2TableRow1Binding;
+import com.example.hao_activity_submission.databinding.FragmentTab2TableRow2Binding;
 import com.example.hao_activity_submission.databinding.FragmentTabTableRow1Binding;
 import com.example.hao_activity_submission.databinding.FragmentTabTableRow2Binding;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BeerListAdapter extends RecyclerView.Adapter{
-
-    private ArrayList<BeerModel> beers;
-    private Context context;
+public class BeerRoomListAdapter extends RecyclerView.Adapter {
+     ArrayList<BeerModelRoom> beers;
+     Context context;
 
 
 //    public void add(int position, BeerModel item) {
@@ -32,20 +31,22 @@ public class BeerListAdapter extends RecyclerView.Adapter{
 //        notifyItemRemoved(position);
 //    }
 
+    public BeerRoomListAdapter( ArrayList<BeerModelRoom> beers) {
+        this.beers = beers;
+    }
 
 
-
-    public void setData(List<BeerModel> beers) {
-        this.beers = (ArrayList<BeerModel>) beers;
+    public void setData(List<BeerModelRoom> beers) {
+        this.beers = (ArrayList<BeerModelRoom>) beers;
     }
 
 
 
     public static class BeerViewHolder1 extends RecyclerView.ViewHolder {
 
-        FragmentTabTableRow1Binding itemBeerBinding;
+        private FragmentTab2TableRow1Binding itemBeerBinding;
 
-        public BeerViewHolder1(@NonNull FragmentTabTableRow1Binding itemBeerBinding) {
+        public BeerViewHolder1(@NonNull FragmentTab2TableRow1Binding itemBeerBinding) {
             super(itemBeerBinding.getRoot());
             this.itemBeerBinding = itemBeerBinding;
         }
@@ -53,9 +54,9 @@ public class BeerListAdapter extends RecyclerView.Adapter{
 
     public static class BeerViewHolder2 extends RecyclerView.ViewHolder {
 
-        FragmentTabTableRow2Binding itemBeerBinding2;
+        private FragmentTab2TableRow2Binding itemBeerBinding2;
 
-        public BeerViewHolder2(@NonNull FragmentTabTableRow2Binding itemBeerBinding2) {
+        public BeerViewHolder2(@NonNull FragmentTab2TableRow2Binding itemBeerBinding2) {
             super(itemBeerBinding2.getRoot());
             this.itemBeerBinding2 = itemBeerBinding2;
         }
@@ -70,14 +71,14 @@ public class BeerListAdapter extends RecyclerView.Adapter{
 
 
         switch (viewType) {
-            case BeerModel.TYPE_ODD:
-                FragmentTabTableRow1Binding itemUserBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
-                        R.layout.fragment_tab_table_row_1, parent, false);
-                return new BeerViewHolder1(itemUserBinding);
-            case BeerModel.TYPE_EVEN:
-                FragmentTabTableRow2Binding itemUserBinding2 = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
-                        R.layout.fragment_tab_table_row_2, parent, false);
-                return new BeerViewHolder2(itemUserBinding2);
+            case BeerModelRoom.TYPE_ODD:
+                FragmentTab2TableRow1Binding itemUserBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
+                        R.layout.fragment_tab2_table_row_1, parent, false);
+                return new BeerRoomListAdapter.BeerViewHolder1(itemUserBinding);
+            case BeerModelRoom.TYPE_EVEN:
+                FragmentTab2TableRow2Binding itemUserBinding2 = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
+                        R.layout.fragment_tab2_table_row_2, parent, false);
+                return new BeerRoomListAdapter.BeerViewHolder2(itemUserBinding2);
 
         }
         return null;
@@ -93,14 +94,18 @@ public class BeerListAdapter extends RecyclerView.Adapter{
 
         switch (position%2) {
             case 0:
-                return BeerModel.TYPE_ODD;
+                return BeerModelRoom.TYPE_ODD;
             case 1:
-                return BeerModel.TYPE_EVEN;
+                return BeerModelRoom.TYPE_EVEN;
             default:
                 return -1;
         }
     }
 
+    public void getAllData( ArrayList<BeerModelRoom> beers)
+    {
+        this.beers=beers;
+    }
 
     //Inside the Adapter class
     @Override
@@ -114,18 +119,18 @@ public class BeerListAdapter extends RecyclerView.Adapter{
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        final BeerModel beer = beers.get(position);
+        final BeerModelRoom beer = beers.get(position);
 
         if (beer != null) {
             switch (position % 2) {
-                case BeerModel.TYPE_ODD:
+                case BeerModelRoom.TYPE_ODD:
                     // ((TextTypeViewHolder) holder).txtType.setText(object.text);
-                    ((BeerViewHolder1) holder).itemBeerBinding.setBeerModel(beer);
-                    ((BeerViewHolder1) holder).itemBeerBinding.setImageUrl(beer.getImageUrl());
+                    ((BeerRoomListAdapter.BeerViewHolder1) holder).itemBeerBinding.setBeerModelRoom(beer);
+                    ((BeerRoomListAdapter.BeerViewHolder1) holder).itemBeerBinding.setImageUrl(beer.getImageUrl());
                     break;
-                case BeerModel.TYPE_EVEN:
-                    ((BeerViewHolder2) holder).itemBeerBinding2.setBeerModel(beer);
-                    ((BeerViewHolder2) holder).itemBeerBinding2.setImageUrl(beer.getImageUrl());
+                case BeerModelRoom.TYPE_EVEN:
+                    ((BeerRoomListAdapter.BeerViewHolder2) holder).itemBeerBinding2.setBeerModelRoom(beer);
+                    ((BeerRoomListAdapter.BeerViewHolder2) holder).itemBeerBinding2.setImageUrl(beer.getImageUrl());
                     break;
 
             }
@@ -156,11 +161,11 @@ public class BeerListAdapter extends RecyclerView.Adapter{
         }
     }
 
-    public List<BeerModel> getBeers() {
+    public List<BeerModelRoom> getBeers() {
         return beers;
     }
 
-    public void setBeerList(ArrayList<BeerModel> beers) {
+    public void setBeerList(ArrayList<BeerModelRoom> beers) {
         this.beers = beers;
 //     notifyDataSetChanged();
 //        notifyAll();
@@ -169,7 +174,7 @@ public class BeerListAdapter extends RecyclerView.Adapter{
         beers.clear();
     }
 
-    public BeerModel getCurrentItemAt(int position) {
+    public BeerModelRoom getCurrentItemAt(int position) {
         return beers.get(position);
     }
 }

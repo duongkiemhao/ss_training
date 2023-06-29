@@ -39,6 +39,7 @@ public class TabActivity extends AppCompatActivity {
     private String[] TabText = new String[]{"One", "Two", "Three"};
     private int[] ChangeTabIconFragment = new int[]{R.drawable.change_tab_icon_fragment_1, R.drawable.change_tab_icon_fragment_2, R.drawable.change_tab_icon_fragment_3};
     RefreshInterface refreshInterface;
+    RefreshInterface2 refreshInterface2;
 
 
     @Override
@@ -64,7 +65,9 @@ public class TabActivity extends AppCompatActivity {
                                 ((RefreshInterface)getSupportFragmentManager().findFragmentByTag("f" + tab1.getPosition())).refresh_fragment();
                             break;
                         case 1:
-                            TabFragment2 twoFragment = new TabFragment2();
+//                            TabFragment2 twoFragment = new TabFragment2();
+                            if(getSupportFragmentManager().findFragmentByTag("f" + tab1.getPosition()) instanceof RefreshInterface2)
+                                ((RefreshInterface2)getSupportFragmentManager().findFragmentByTag("f" + tab1.getPosition())).refresh_fragment();
                             break;
                         case 2:
                             TabFragment3 threeFragment = new TabFragment3();
@@ -90,6 +93,14 @@ public class TabActivity extends AppCompatActivity {
     }
 
     public interface RefreshInterface {
+        void refresh_fragment();
+    }
+
+    public void initialiseRefreshInterface2(RefreshInterface2 refreshInterface2){
+        this.refreshInterface2 = refreshInterface2;
+    }
+
+    public interface RefreshInterface2 {
         void refresh_fragment();
     }
 
