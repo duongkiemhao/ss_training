@@ -2,16 +2,7 @@ package com.example.hao_activity_submission;
 
 import android.widget.ImageView;
 
-import androidx.annotation.NonNull;
 import androidx.databinding.BindingAdapter;
-import androidx.room.ColumnInfo;
-import androidx.room.Embedded;
-import androidx.room.Entity;
-import androidx.room.Ignore;
-import androidx.room.Index;
-import androidx.room.PrimaryKey;
-import androidx.room.TypeConverter;
-import androidx.room.TypeConverters;
 
 import com.bumptech.glide.Glide;
 import com.example.hao_activity_submission.Model.IngredientsModel;
@@ -21,9 +12,7 @@ import com.google.gson.annotations.SerializedName;
 import java.lang.reflect.Method;
 import java.util.List;
 
-
 public class BeerModel {
-
     private int id;
     private String name;
     private String tagline;
@@ -43,7 +32,17 @@ public class BeerModel {
     private double ebc;
     private double srm;
 
+    private QuantityModel volume;
 
+    @SerializedName("boil_volume")
+    private QuantityModel boilVolume;
+
+    private Method method;
+
+    private IngredientsModel ingredients;
+
+    @SerializedName("food_pairing")
+    private List<String> foodPairing;
 
     @SerializedName("brewers_tips")
     private String brewersTips;
@@ -91,7 +90,25 @@ public class BeerModel {
         return srm;
     }
 
+    public QuantityModel getVolume() {
+        return volume;
+    }
 
+    public QuantityModel getBoilVolume() {
+        return boilVolume;
+    }
+
+    public Method getMethod() {
+        return method;
+    }
+
+    public IngredientsModel getIngredients() {
+        return ingredients;
+    }
+
+    public List<String> getFoodPairing() {
+        return foodPairing;
+    }
 
     public String getBrewersTips() {
         return brewersTips;
@@ -109,6 +126,5 @@ public class BeerModel {
     }
 
 //    android:src="@{beerModel.imageUrl}"
-
 
 }

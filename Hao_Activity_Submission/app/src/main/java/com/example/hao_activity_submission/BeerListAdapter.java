@@ -43,7 +43,7 @@ public class BeerListAdapter extends RecyclerView.Adapter{
 
     public static class BeerViewHolder1 extends RecyclerView.ViewHolder {
 
-        FragmentTabTableRow1Binding itemBeerBinding;
+        private FragmentTabTableRow1Binding itemBeerBinding;
 
         public BeerViewHolder1(@NonNull FragmentTabTableRow1Binding itemBeerBinding) {
             super(itemBeerBinding.getRoot());
@@ -53,7 +53,7 @@ public class BeerListAdapter extends RecyclerView.Adapter{
 
     public static class BeerViewHolder2 extends RecyclerView.ViewHolder {
 
-        FragmentTabTableRow2Binding itemBeerBinding2;
+        private FragmentTabTableRow2Binding itemBeerBinding2;
 
         public BeerViewHolder2(@NonNull FragmentTabTableRow2Binding itemBeerBinding2) {
             super(itemBeerBinding2.getRoot());

@@ -61,7 +61,24 @@ public class PunkRepository {
     public void getBeers(final PunkCallback callback) {
         getBeers(callback);
     }
-
+//
+//    public void getBeers(final PunkCallback callback, int page) {
+//        punkApi.getBeers(String.valueOf(page)).enqueue(new Callback<List<BeerModel>>() {
+//            @Override
+//            public void onResponse(Call<List<BeerModel>> call, Response<List<BeerModel>> response) {
+//                if (response.isSuccessful() && response.body() != null) {
+//                    callback.onSuccess(response.body());
+//                } else {
+//                    callback.onFailure();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<BeerModel>> call, Throwable t) {
+//                callback.onFailure();
+//            }
+//        });
+//    }
 
 
 }
