@@ -19,6 +19,7 @@ import java.util.List;
 public class BeerListAdapter extends RecyclerView.Adapter{
 
     private ArrayList<BeerModel> beers;
+    ArrayList<BeerModelRoom> beers2;
     private Context context;
 
 
@@ -32,7 +33,9 @@ public class BeerListAdapter extends RecyclerView.Adapter{
 //        notifyItemRemoved(position);
 //    }
 
-
+    public BeerListAdapter( ArrayList<BeerModelRoom> beers) {
+        this.beers2 = beers;
+    }
 
 
     public void setData(List<BeerModel> beers) {
@@ -158,6 +161,10 @@ public class BeerListAdapter extends RecyclerView.Adapter{
 
     public List<BeerModel> getBeers() {
         return beers;
+    }
+
+    public List<BeerModelRoom> getBeers2() {
+        return beers2;
     }
 
     public void setBeerList(ArrayList<BeerModel> beers) {

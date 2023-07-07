@@ -18,15 +18,16 @@ public class BeerRoomViewModel extends AndroidViewModel {
     public BeerRoomViewModel(@NonNull Application application) {
         super(application);
         repository=new PunkRoomRepository(application);
-        getAllCats=repository.getAllBeers();
+
     }
 
     public void insert(List<BeerModelRoom> cats){
         repository.insert(cats);
     }
 
-    public LiveData<List<BeerModelRoom>> getAllCats()
+    public LiveData<List<BeerModelRoom>> getAllCats(int a, int b)
     {
+        getAllCats=repository.getAllBeers(a,b);
         return getAllCats;
     }
 

@@ -16,12 +16,19 @@ public class PunkRoomRepository {
     public BeerModelDao beerModelDao;
     public LiveData<List<BeerModelRoom>> getAllBeers;
     private BeerDatabase database;
-
+    public int aInt, bInt;
     public PunkRoomRepository(Application application){
         database=BeerDatabase.getInstance(application);
         beerModelDao=database.beerModelDao();
-        getAllBeers=beerModelDao.gettingAllBeer();
 
+
+    }
+
+    public int getAInt() {
+        return aInt;
+    }
+    public int getBInt(){
+        return bInt;
     }
 
     public void insert(List<BeerModelRoom> cats){
@@ -29,9 +36,11 @@ public class PunkRoomRepository {
 
     }
 
-    public LiveData<List<BeerModelRoom>> getAllBeers(){
+    public LiveData<List<BeerModelRoom>> getAllBeers(int a, int b){
+        getAllBeers=beerModelDao.gettingAllBeer(a, b);
         return getAllBeers;
     }
+
     private static class InsertAsyncTask extends AsyncTask<List<BeerModelRoom>,Void,Void> {
         private BeerModelDao beerModelDao;
 

@@ -100,6 +100,8 @@ public class TabFragment2 extends Fragment implements TabActivity.RefreshInterfa
                             ((LinearLayoutManager) binding.recyclerView2.getLayoutManager()).getItemCount();
                     int pagingPastVisibleItems =
                             ((LinearLayoutManager) binding.recyclerView2.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
+
+
                     if (pagingLoading) {
                         if (pagingVisibleItemCount + pagingPastVisibleItems >= pagingTotalItemCount) {
                             pagingLoading = false;
@@ -126,54 +128,30 @@ public class TabFragment2 extends Fragment implements TabActivity.RefreshInterfa
 
     public void getData() {
         Log.d(TAG,"Get data Tab Fragment 2");
-        makeRequest(page);
+//        makeRequest(page);
 
 
-        beerViewModel.getAllCats().observe(getActivity(),userList -> {
+        beerViewModel.getAllCats(page*10 - 9, page *10).observe(getActivity(),userList -> {
 
                 if (page != 1) {
-                //    binding.recyclerView2.setAdapter(adapter);
-                  //  adapter.getAllData(userArrayList);
+                    binding.recyclerView2.setAdapter(adapter);
+//                    adapter.getAllData((ArrayList<BeerModelRoom>) userList);
                     adapter.getBeers().addAll(userList);
                     adapter.notifyItemInserted(adapter.getBeers().size() - userList.size());
+//                    adapter.setData(userList);
+//                    adapter.getBeers().addAll(userList);
+//                    adapter.notifyItemInserted(adapter.getBeers().size() - userList.size());
                     pagingLoading = true;
                   //  mutableLiveData.setValue(userArrayList);
                     Log.d("main", "onChanged: "+userList);
                 } else {
-                    adapter.setBeerList((ArrayList<BeerModelRoom>) userList);
+//                    adapter.setBeerList((ArrayList<BeerModelRoom>) userList);
+                    adapter.setData(userList);
+                    Log.d("main", "onChanged: "+userList);
                     adapter.notifyDataSetChanged();
                 }
         });
     }
 
-    private void makeRequest(int t) {
-        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        OkHttpClient httpclient = new OkHttpClient.Builder().addInterceptor(interceptor)
-                .build();
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://api.punkapi.com/v2/")
-                .client(httpclient)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        PunkApi api = retrofit.create(PunkApi.class);
-        Call<List<BeerModelRoom>> call = api.getBeers2(String.valueOf(t));
-        call.enqueue(new retrofit2.Callback<List<BeerModelRoom>>() {
-            @Override
-            public void onResponse(Call<List<BeerModelRoom>> call, Response<List<BeerModelRoom>> response) {
-                if (response.body() != null) {
-//
-                    repository.insert(response.body());
-                    userArrayList = (ArrayList<BeerModelRoom>) response.body();
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<BeerModelRoom>> call, Throwable t) {
-                Log.d("main", "onFailure: " + t.getMessage());
-            }
-        });
-    }
 }
