@@ -16,7 +16,7 @@ public class PunkRoomRepository {
     public BeerModelDao beerModelDao;
     public LiveData<List<BeerModelRoom>> getAllBeers;
     private BeerDatabase database;
-    public int aInt, bInt;
+    public int limitInt, offsetInt;
     public PunkRoomRepository(Application application){
         database=BeerDatabase.getInstance(application);
         beerModelDao=database.beerModelDao();
@@ -25,10 +25,10 @@ public class PunkRoomRepository {
     }
 
     public int getAInt() {
-        return aInt;
+        return limitInt;
     }
     public int getBInt(){
-        return bInt;
+        return offsetInt;
     }
 
     public void insert(List<BeerModelRoom> cats){
@@ -36,8 +36,8 @@ public class PunkRoomRepository {
 
     }
 
-    public LiveData<List<BeerModelRoom>> getAllBeers(int a, int b){
-        getAllBeers=beerModelDao.gettingAllBeer(a, b);
+    public LiveData<List<BeerModelRoom>> getAllBeers(int limit, int offset){
+        getAllBeers=beerModelDao.gettingAllBeer(limit, offset);
         return getAllBeers;
     }
 
