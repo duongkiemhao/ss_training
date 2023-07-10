@@ -44,7 +44,7 @@ public class TabFragment2 extends Fragment implements TabActivity.RefreshInterfa
 
     FragmentTab2Binding binding;
 
-    private BeerRoomViewModel beerViewModel;
+    private BeerViewModel beerViewModel;
     private BeerRoomListAdapter adapter;
     private static final String TAG = "TabActivity";
     //for paging
@@ -73,7 +73,7 @@ public class TabFragment2 extends Fragment implements TabActivity.RefreshInterfa
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        beerViewModel = ViewModelProviders.of(this).get(BeerRoomViewModel.class);
+        beerViewModel = ViewModelProviders.of(this).get(BeerViewModel.class);
 
         repository = new PunkRoomRepository(getActivity().getApplication());
 

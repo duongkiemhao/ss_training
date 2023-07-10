@@ -44,4 +44,11 @@ public class BeerViewModel  extends AndroidViewModel {
     {
         return getAllBeers;
     }
+
+
+    public LiveData<List<BeerModelRoom>> getAllCats(int a, int b)
+    {
+        getAllBeers=repositoryRoom.getAllBeers(a,b);
+        return getAllBeers;
+    }
 }
