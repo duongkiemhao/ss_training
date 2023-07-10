@@ -14,7 +14,7 @@ public interface BeerModelDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(List<BeerModelRoom> beers);
 
-    @Query("SELECT * FROM Beer Where id between :value1 and :value2")
+    @Query("SELECT * FROM Beer Where id Limit :value1 offset :value2")
     LiveData<List<BeerModelRoom>> gettingAllBeer(int value1, int value2);
 
     @Query("DELETE FROM Beer")

@@ -131,7 +131,7 @@ public class TabFragment2 extends Fragment implements TabActivity.RefreshInterfa
 //        makeRequest(page);
 
 
-        beerViewModel.getAllCats(page*10 - 9, page *10).observe(getActivity(),userList -> {
+        beerViewModel.getAllCats(10, page *10 -10).observe(getActivity(),userList -> {
 
                 if (page != 1) {
                     binding.recyclerView2.setAdapter(adapter);
